@@ -55,30 +55,24 @@ A modular Azure architecture deployed entirely through Bicep:
 ## How to Deploy
 
 ```bash
-# Step 1 — Create resource group
 az group create --name rg-bicep-3tier --location norwayeast
 
-# Step 2 — Deploy everything with one command
 az deployment group create \
   --resource-group rg-bicep-3tier \
   --template-file main.bicep \
   --parameters parameters.json
 
-# Step 3 — View outputs
 az deployment group show \
   --resource-group rg-bicep-3tier \
   --name main \
   --query properties.outputs
 
-# Step 4 — Clean up
 az group delete --name rg-bicep-3tier --yes --no-wait
 ```
 
 ---
 
 ## Deployment Output
-
-After running the deploy command, Bicep automatically surfaces:
 
 ```json
 {
@@ -87,18 +81,12 @@ After running the deploy command, Bicep automatically surfaces:
 }
 ```
 
-No manual searching through the portal. The outputs tell you everything you need.
-
 ---
 
 ## Key Learnings
 
-- **Modularity matters** — splitting each resource into its own .bicep file makes the code readable, testable, and reusable across projects
+- **Modularity matters** — splitting each resource into its own .bicep file makes the code readable, testable, and reusable
 - **Repeatability is the point** — IaC removes the risk of environment drift; every deployment is identical
-- **Outputs replace manual discovery** — instead of navigating the portal after deployment, Bicep prints exactly what you need
-- **Version control for infrastructure** — every change to the architecture is tracked in Git, with a full history of what changed and when
-- **uniqueString() is essential** — Azure resource names must be globally unique; this function solves that automatically
-
----
-
-*Built as part of a structured cloud portfolio targeting Cloud Architect and Cloud Consulting roles in Dublin, Ireland.*
+- **Outputs replace manual discovery** — Bicep prints exactly what you need after deployment
+- **Version control for infrastructure** — every change is tracked in Git with full history
+- **uniqueString() is essential** — Azure resource names must be globally unique; this solves it automatically
